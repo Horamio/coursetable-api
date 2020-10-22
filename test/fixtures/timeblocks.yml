@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section: one
+  start_time: 2020-10-22 07:34:12
+  end_time: 2020-10-22 07:34:12
+  day: MyString
+  session_type: MyString
+  place: MyString
+
+two:
+  section: two
+  start_time: 2020-10-22 07:34:12
+  end_time: 2020-10-22 07:34:12
+  day: MyString
+  session_type: MyString
+  place: MyString
