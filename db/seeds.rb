@@ -16,14 +16,16 @@ faculties << Faculty.create({ name: 'Ingeniería Económica', code: 'E5', colleg
 faculties << Faculty.create({ name: 'Ingeniería Estadística', code: 'E6', college: college })
 
 courses = []
-10.times do |_i|
-  courses << Course.create(
-    { name: Faker::Beer.unique.brand,
-      code: Faker::Code.unique.asin,
-      semester: rand(1..10),
-      credits: rand(1..5),
-      faculty: faculties.sample }
-  )
+10.times do |semester|
+  3.times do |_j|
+    courses << Course.create(
+      { name: Faker::Beer.unique.brand,
+        code: Faker::Code.unique.asin,
+        semester: semester,
+        credits: rand(1..5),
+        faculty: faculties.sample }
+    )
+  end
 end
 
 sections = []
