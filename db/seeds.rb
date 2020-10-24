@@ -9,52 +9,60 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-college = College.create({ name: 'Universidad Nacional de Ingeniería' })
+blocks_file = File.open(Rails.root.join('db', 'data', 'timeblocks.txt'))
+courses_file = File.open(Rails.root.join('db', 'data', 'courses.txt'))
 
-faculties = []
-faculties << Faculty.create({ name: 'Ingeniería Económica', code: 'E5', college: college })
-faculties << Faculty.create({ name: 'Ingeniería Estadística', code: 'E6', college: college })
+blocks_rows = blocks_file.readlines.map(&:chomp)
+blocks_rows.shift
+blocks_rows = blocks_rows.map { |row| row.split(/\t/) }
+
+courses_rows = courses_file.readlines.map(&:chomp)
+courses_rows.shift
+courses_rows = courses_rows.map { |row| row.split(/\t/) }
+
+college = College.create({ name: 'Universidad Nacional de Ingeniería' })
+faculty = Faculty.create({ name: 'Facultad de Ingeniería Económica,Estadística y Ciencias Sociales', code: 'FIECS', college: college })
 
 courses = []
-10.times do |semester|
-  3.times do |_j|
-    courses << Course.create(
-      { name: Faker::Beer.unique.brand,
-        code: Faker::Code.unique.asin,
-        semester: semester,
-        credits: rand(1..5),
-        faculty: faculties.sample }
-    )
-  end
+courses_rows.each do |row|
+  courses << Course.create(
+    { code: row[0],
+      name: row[1],
+      credits: row[2],
+      semester: row[3],
+      faculty: faculty }
+  )
 end
 
-sections = []
 courses.each do |course|
-  course.sections << Section.create({ code: 'A' })
-  course.sections << Section.create({ code: 'B' })
-  course.sections << Section.create({ code: 'C' })
-
-  sections += course.sections
+  course_blocks = blocks_rows.select { |row| row[0] == course.code }
+  course_sections = course_blocks.map { |row| row[1] }.uniq
+  sections = course_sections.map { |section_code| { course: course, code: section_code } }
+  Section.create(sections)
 end
 
-professors = []
-20.times do |_i|
-  professors << Professor.create({ name: Faker::Name.unique.name, code: Faker::Code.unique.asin })
-end
+blocks_rows.each do |block|
+  course_code = block[0]
+  section_code = block[1]
 
-days = %w[SU MO TU WE TH FR SA]
-session_types = %w[P T L]
+  course = Course.find_by({ code: course_code })
+  section = Section.find_by({ code: section_code, course: course })
 
-sections.each do |section|
-  professors.each do |professor|
-    Timeblock.create(
-      { professor: professor,
-        place: Faker::Alphanumeric.alphanumeric(number: 4),
-        start_time: '09:00:00',
-        end_time: '10:00:00',
-        session_type: session_types.sample,
-        day: days.sample,
-        section: section }
-    )
-  end
+  day = block[2]
+  session_type = block[3]
+
+  professor = Professor.find_or_create_by({ name: block[5] })
+  time_range = block[4].split('--')
+  start_time = "#{time_range[0]}:00:00"
+  end_time = "#{time_range[1]}:00:00"
+
+  Timeblock.create(
+    { professor: professor,
+      place: Faker::Alphanumeric.alphanumeric(number: 4),
+      start_time: start_time,
+      end_time: end_time,
+      session_type: session_type,
+      day: day,
+      section: section }
+  )
 end

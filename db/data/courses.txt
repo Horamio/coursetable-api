@@ -1,0 +1,13 @@
+Código 	Curso	Creditos	Ciclo
+BEG01	Economia General	3	1
+BFI01	Fisica I	5	1
+BIC01	Introducción a la computación	2	1
+BMA01	Calculo diferencial	5	1
+BQU01	Quimica	5	1
+BRC01	Redacción y Comunicación	2	1
+BEF01	Etica y Fisolofia politica	2	2
+BMA02	Calculo Integral 	5	2
+BMA03	Algebra Lineal	4	2
+FEE21	Economia General II	3	2
+FHH21	Sociología	3	2
+FSE22	Estadistica Aplicada I	4	2
