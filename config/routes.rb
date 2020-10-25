@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get '/' => 'ping#ping'
   get 'ping' => 'ping#ping'
 
-  resources :courses
+  resources :colleges
   resources :faculties
   resources :specialities
+  resources :courses
 end
