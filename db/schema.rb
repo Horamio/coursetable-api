@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_140525) do
+ActiveRecord::Schema.define(version: 2020_10_25_101232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,14 +22,12 @@ ActiveRecord::Schema.define(version: 2020_10_22_140525) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.bigint "faculty_id", null: false
     t.string "code"
     t.string "name"
     t.integer "semester"
     t.integer "credits"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["faculty_id"], name: "index_courses_on_faculty_id"
   end
 
   create_table "faculties", force: :cascade do |t|
@@ -63,6 +61,15 @@ ActiveRecord::Schema.define(version: 2020_10_22_140525) do
     t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
+  create_table "specialities", force: :cascade do |t|
+    t.bigint "faculty_id", null: false
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["faculty_id"], name: "index_specialities_on_faculty_id"
+  end
+
   create_table "timeblocks", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.time "start_time"
@@ -77,9 +84,9 @@ ActiveRecord::Schema.define(version: 2020_10_22_140525) do
     t.index ["section_id"], name: "index_timeblocks_on_section_id"
   end
 
-  add_foreign_key "courses", "faculties"
   add_foreign_key "faculties", "colleges"
   add_foreign_key "sections", "courses"
+  add_foreign_key "specialities", "faculties"
   add_foreign_key "timeblocks", "professors"
   add_foreign_key "timeblocks", "sections"
 end
