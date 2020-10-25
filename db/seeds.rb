@@ -22,16 +22,19 @@ courses_rows = courses_rows.map { |row| row.split(/\t/) }
 
 college = College.create({ name: 'Universidad Nacional de Ingeniería' })
 faculty = Faculty.create({ name: 'Facultad de Ingeniería Económica,Estadística y Ciencias Sociales', code: 'FIECS', college: college })
+speciality = Speciality.create({ name: 'Ingeniería Económica', code: 'E6', faculty: faculty })
 
 courses = []
 courses_rows.each do |row|
-  courses << Course.create(
+  new_course = Course.create(
     { code: row[0],
       name: row[1],
       credits: row[2],
-      semester: row[3],
-      faculty: faculty }
+      semester: row[3] }
   )
+
+  courses << new_course
+  speciality.courses << new_course
 end
 
 courses.each do |course|

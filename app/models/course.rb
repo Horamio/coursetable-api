@@ -1,4 +1,4 @@
 class Course < ApplicationRecord
-  belongs_to :faculty
+  has_and_belongs_to_many :specialities
   has_many :sections
 end
