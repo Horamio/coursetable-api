@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get 'ping' => 'ping#ping'
 
   resources :courses
+  resources :faculties
 end
