@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   resources :courses
   resources :faculties
+  resources :specialities
 end
