@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoursesController < ApplicationController
   def index
     courses = Course.includes(specialities: { faculty: :college })
@@ -7,7 +9,7 @@ class CoursesController < ApplicationController
     courses = courses.where(specialities: { id: params[:speciality_id] }) if params[:speciality_id]
     courses = courses.where(semester: params[:semester]) if params[:semester]
 
-    render json: courses
+    render json: courses.to_json(include: :sections)
   end
 
   def show
