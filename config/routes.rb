@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :faculties
   resources :specialities
   resources :courses
+  resources :sections
 end
