@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_110504) do
+ActiveRecord::Schema.define(version: 2020_10_27_210729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 2020_10_25_110504) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "section_associations", force: :cascade do |t|
+    t.bigint "section_1_id"
+    t.bigint "section_2_id"
+    t.boolean "intersect"
+    t.integer "intersect_minutes"
+    t.boolean "enabled"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_1_id"], name: "index_section_associations_on_section_1_id"
+    t.index ["section_2_id"], name: "index_section_associations_on_section_2_id"
   end
 
   create_table "sections", force: :cascade do |t|

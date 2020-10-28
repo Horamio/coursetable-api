@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section_1_id: 
+  section_2_id: 
+  intersect: false
+  intersect_minutes: 
+  enabled: false
+
+two:
+  section_1_id: 
+  section_2_id: 
+  intersect: false
+  intersect_minutes: 
+  enabled: false
