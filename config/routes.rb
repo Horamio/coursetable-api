@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   resources :specialities
   resources :courses
   resources :sections
+  resources :section_associations do
+    post 'evaluate', on: :collection
+  end
 end

@@ -2,6 +2,7 @@
 
 class Section < ApplicationRecord
   belongs_to :course
+  has_many :timeblocks
   has_many :section_1_associations, foreign_key: :section_1_id,
                                     class_name: 'SectionAssociation'
   has_many :section_1s, through: :section_1_associations,
