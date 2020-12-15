@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   resources :section_associations do
     post 'evaluate', on: :collection
     post 'evaluate_all', on: :collection
+    get 'generate_schedules', on: :collection
   end
 end
